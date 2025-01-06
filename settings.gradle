@@ -1,0 +1,24 @@
+pluginManagement {
+    String springBootVersion = settings.springBootVersion
+    String springDependencyManagementVersion = settings.springDependencyManagementVersion
+
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == 'org.springframework.boot') {
+                useVersion(springBootVersion)
+            }
+            if (requested.id.id == 'io.spring.dependency-management') {
+                useVersion(springDependencyManagementVersion)
+            }
+        }
+    }
+}
+
+rootProject.name = 'chat'
+
+include(
+        'module-external-api',
+        'module-domain',
+        'module-service',
+        'module-storage-rdb'
+)

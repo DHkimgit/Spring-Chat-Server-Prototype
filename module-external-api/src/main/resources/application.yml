@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: chatdemo
+  messages:
+    encoding: UTF-8
+
+  config:
+    import:
+      - classpath:application-rdb.yml
+      - classpath:application-redis.yml
+
+logging:
+  level:
+    org.springframework: DEBUG
+    org.hibernate: DEBUG

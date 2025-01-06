@@ -1,0 +1,60 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot'
+	id 'io.spring.dependency-management'
+}
+
+allprojects {
+	group = "${projectGroup}"
+	version = "${applicationVersion}"
+}
+
+bootJar {
+	enabled = false
+}
+
+jar {
+	enabled = true
+}
+
+subprojects {
+	apply{
+		plugin 'java'
+		plugin 'io.spring.dependency-management'
+		plugin 'org.springframework.boot'
+	}
+
+	java {
+		toolchain {
+			languageVersion = JavaLanguageVersion.of(17)
+		}
+	}
+
+	repositories {
+		mavenCentral()
+	}
+
+	dependencies {
+		compileOnly("org.projectlombok:lombok")
+		annotationProcessor("org.projectlombok:lombok")
+		annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+
+		testImplementation 'org.springframework.boot:spring-boot-starter-test'
+		testCompileOnly 'org.projectlombok:lombok'
+		testAnnotationProcessor 'org.projectlombok:lombok'
+	}
+
+	configurations {
+		compileOnly {
+			extendsFrom annotationProcessor
+		}
+	}
+
+	tasks.named('bootJar') {
+		mainClass.set("io.devtab.chat.ChatApplication")
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
