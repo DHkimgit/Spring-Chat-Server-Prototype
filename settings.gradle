@@ -20,5 +20,8 @@ include(
         'module-external-api',
         'module-domain',
         'module-service',
-        'module-storage-rdb'
+        'module-storage-rdb',
+        'module-storage-redis',
+        'module-websocket-socketio',
+        'module-websocket-stomp'
 )

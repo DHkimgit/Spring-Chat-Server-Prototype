@@ -1,0 +1,16 @@
+bootJar {
+    enabled = false
+}
+
+jar {
+    enabled = true
+}
+
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation('org.springframework.boot:spring-boot-starter-data-redis')
+
+    implementation('com.github.f4b6a3:tsid-creator:5.2.6')
+
+    compileOnly(project(":module-domain"))
+}

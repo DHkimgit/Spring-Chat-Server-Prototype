@@ -1,4 +1,4 @@
-package io.devtab.chat.redis.util;
+package io.devtab.chat.util;
 
 public interface IdGenerator<T> {
 

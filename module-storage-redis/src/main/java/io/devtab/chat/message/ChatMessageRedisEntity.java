@@ -1,4 +1,4 @@
-package io.devtab.chat.redis.domain;
+package io.devtab.chat.message;
 
 import java.time.LocalDateTime;
 
@@ -8,13 +8,16 @@ import org.springframework.data.redis.core.index.Indexed;
 
 import io.devtab.chat.ChatCache;
 import io.devtab.chat.ChatId;
+import io.devtab.chat.ChatMessageEntity;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@Builder
 @AllArgsConstructor
 @RedisHash(value = "ChatMessage")
-public class ChatMessageEntity {
+public class ChatMessageRedisEntity {
 
     @Id
     private Long id;
@@ -50,4 +53,16 @@ public class ChatMessageEntity {
             .build();
     }
 
+    public static ChatMessageRedisEntity toRedisEntity(ChatMessageEntity message) {
+        return ChatMessageRedisEntity.builder()
+            .articleId(message.getArticleId())
+            .chatRoomId(message.getChatRoomId())
+            .userId(message.getUserId())
+            .isRead(message.getIsRead())
+            .isDeleted(message.getIsDeleted())
+            .nickName(message.getNickName())
+            .contents(message.getContents())
+            .createdAt(message.getCreatedAt())
+            .build();
+    }
 }

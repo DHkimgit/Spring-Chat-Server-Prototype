@@ -6,7 +6,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 
-import io.devtab.chat.ChatMessage;
+import io.devtab.chat.ChatMessageCommand;
 import io.devtab.chat.ChatService;
 import lombok.RequiredArgsConstructor;
 
@@ -19,9 +19,11 @@ public class ChatController {
 
     @MessageMapping("/chat/{articleId}/{chatRoomId}")
     @SendTo("/topic/chat/{articleId}/{chatRoomId}")
-    public void handleChatMessage(@DestinationVariable Long articleId,
+    public void handleChatMessage(
+        @DestinationVariable Long articleId,
         @DestinationVariable Long chatRoomId,
-        ChatMessage message) {
+        ChatMessageCommand message
+    ) {
         chatService.saveMessage(articleId, chatRoomId, message);
         simpMessageSendingOperations.convertAndSend("/topic/chat/" + articleId + "/" + chatRoomId, message);
     }
