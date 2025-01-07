@@ -55,6 +55,7 @@ public class ChatMessageRedisEntity {
 
     public static ChatMessageRedisEntity toRedisEntity(ChatMessageEntity message) {
         return ChatMessageRedisEntity.builder()
+            .id(message.getId())
             .articleId(message.getArticleId())
             .chatRoomId(message.getChatRoomId())
             .userId(message.getUserId())

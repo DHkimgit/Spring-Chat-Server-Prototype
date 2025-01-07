@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import io.devtab.chat.ChatMessageCommand;
 import io.devtab.chat.ChatService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequiredArgsConstructor
+@Slf4j
 public class ChatController {
 
     private final ChatService chatService;

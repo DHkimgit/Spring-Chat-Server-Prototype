@@ -13,6 +13,6 @@ public record ChatMessageResponse(
 
     public static ChatMessageResponse toResponse(ChatMessageCommand message) {
         return new ChatMessageResponse(message.getUserId(), message.getUserNickname(), message.getContent(),
-            message.getTimeStamp());
+            message.getTimestamp());
     }
 }

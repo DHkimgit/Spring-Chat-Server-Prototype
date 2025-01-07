@@ -16,14 +16,14 @@ public class ChatMessageCommand {
     private Long userId; // user 테이블 PK
     private String userNickname; // 체팅방에 표시되는 user 이름
     private String content; // 채팅 메시지
-    private LocalDateTime timeStamp; // 시간
+    private LocalDateTime timestamp; // 시간
 
     public static ChatMessageCommand toCommand(ChatMessageEntity message) {
         return ChatMessageCommand.builder()
             .userId(message.getUserId())
             .userNickname(message.getNickName())
             .content(message.getContents())
-            .timeStamp(message.getCreatedAt())
+            .timestamp(message.getCreatedAt())
             .build();
     }
 }

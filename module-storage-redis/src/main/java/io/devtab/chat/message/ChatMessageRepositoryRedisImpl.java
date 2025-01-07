@@ -47,7 +47,8 @@ public class ChatMessageRepositoryRedisImpl implements ChatMessageRepository {
     public List<ChatMessageEntity> findByArticleIdAndChatRoomId(Long articleId, Long chatRoomId, int limit) {
         String key = getChatRoomKey(articleId, chatRoomId);
 
-        Set<String> messageJsonSet = redisTemplate.opsForZSet().reverseRangeByLex(key, Range.unbounded(), Limit.limit().count(limit));
+        //Set<String> messageJsonSet = redisTemplate.opsForZSet().reverseRangeByLex(key, Range.unbounded(), Limit.limit().count(limit));
+        Set<String> messageJsonSet = redisTemplate.opsForZSet().reverseRange(key, 0, -1);
 
         return convertToMessages(messageJsonSet);
     }

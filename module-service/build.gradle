@@ -8,10 +8,11 @@ jar {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.boot:spring-boot-starter-websocket")
     implementation('org.springframework.boot:spring-boot-starter-data-redis')
 
+    //tsid 생성 라이브러리
     implementation('com.github.f4b6a3:tsid-creator:5.2.6')
 
     compileOnly(project(":module-domain"))
+    runtimeOnly(project(":module-storage-redis"))
 }

@@ -40,7 +40,7 @@ public class ChatMessageEntity {
             .isDeleted(false)
             .nickName(message.getUserNickname())
             .contents(message.getContent())
-            .createdAt(message.getTimeStamp())
+            .createdAt(message.getTimestamp())
             .build();
     }
 }
