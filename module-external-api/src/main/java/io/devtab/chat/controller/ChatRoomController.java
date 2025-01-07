@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.devtab.chat.ChatCache;
 import io.devtab.chat.ChatService;
+import io.devtab.chat.dto.ChatMessageResponse;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -19,12 +20,13 @@ public class ChatRoomController {
 
     private final ChatService chatService;
 
-    // @GetMapping("/chatroom/{articleId}/{chatRoomId}")
-    // public ResponseEntity<List<ChatCache>> getChatMessages(
-    //     @PathVariable Long articleId,
-    //     @PathVariable Long chatRoomId) {
-    //
-    //     List<ChatCache> chatMessages = chatService.getChatMessages(articleId, chatRoomId);
-    //     return ResponseEntity.ok(chatMessages);
-    // }
+    @GetMapping("/chatroom/{articleId}/{chatRoomId}")
+    public ResponseEntity<?> getChatMessages(
+        @PathVariable Long articleId,
+        @PathVariable Long chatRoomId) {
+        var result = chatService.readMessages(articleId, chatRoomId).stream()
+            .map(ChatMessageResponse::toResponse)
+            .toList();
+        return ResponseEntity.ok(result);
+    }
 }
