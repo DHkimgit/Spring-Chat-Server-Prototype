@@ -19,7 +19,8 @@ public class ChatService {
 
         messageHelper.generateMessageId(newMessage);
 
-        messageAppender.append(newMessage);
+        messageAppender.append(newMessage, "redis");
+        //messageAppender.append(newMessage, "rdb");
     }
 
     public List<ChatMessageCommand> readMessages(Long articleId, Long chatRoomId) {

@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
-import org.springframework.data.domain.Range;
-import org.springframework.data.redis.connection.Limit;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -17,7 +15,7 @@ import io.devtab.chat.ChatMessageEntity;
 import io.devtab.chat.ChatMessageRepository;
 import lombok.RequiredArgsConstructor;
 
-@Repository
+@Repository("redis")
 @RequiredArgsConstructor
 public class ChatMessageRepositoryRedisImpl implements ChatMessageRepository {
 
@@ -31,7 +29,7 @@ public class ChatMessageRepositoryRedisImpl implements ChatMessageRepository {
         try {
             ChatMessageRedisEntity messageEntity = ChatMessageRedisEntity.toRedisEntity(message);
             String messageJson = objectMapper.writeValueAsString(messageEntity);
-            String chatRoomKey = getChatRoomKey(messageEntity.getArticleId(),messageEntity.getChatRoomId());
+            String chatRoomKey = getChatRoomKey(messageEntity.getArticleId(), messageEntity.getChatRoomId());
 
             String tsidKey = formatTSIDKey(messageEntity.getId());
 
@@ -39,7 +37,6 @@ public class ChatMessageRepositoryRedisImpl implements ChatMessageRepository {
         } catch (JsonProcessingException e) {
             throw new RuntimeException("메시지 저장 실패", e);
         }
-
         return message;
     }
 

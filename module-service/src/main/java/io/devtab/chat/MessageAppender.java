@@ -1,5 +1,7 @@
 package io.devtab.chat;
 
+import java.util.Map;
+
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
@@ -8,9 +10,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MessageAppender {
 
-    private final ChatMessageRepository chatMessageRepository;
+    private final Map<String, ChatMessageRepository> repositoryMap;
 
-    public void append(ChatMessageEntity message) {
+    public void append(ChatMessageEntity message, String storageType) {
+        ChatMessageRepository chatMessageRepository = repositoryMap.get(storageType);
         chatMessageRepository.save(message);
     }
 }

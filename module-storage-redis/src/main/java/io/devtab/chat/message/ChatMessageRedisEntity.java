@@ -6,8 +6,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.index.Indexed;
 
-import io.devtab.chat.ChatCache;
-import io.devtab.chat.ChatId;
 import io.devtab.chat.ChatMessageEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,19 +37,6 @@ public class ChatMessageRedisEntity {
     private String contents;
 
     private LocalDateTime createdAt;
-
-    public ChatCache toDomain() {
-
-        ChatId chatId = new ChatId(String.valueOf(id), articleId, chatRoomId);
-        return ChatCache.builder()
-            .id(chatId)
-            .messageFrom(userId)
-            .content(contents)
-            .createdAt(createdAt)
-            .deleted(isDeleted)
-            .read(isRead)
-            .build();
-    }
 
     public static ChatMessageRedisEntity toRedisEntity(ChatMessageEntity message) {
         return ChatMessageRedisEntity.builder()

@@ -22,6 +22,7 @@ include(
         'module-service',
         'module-storage-rdb',
         'module-storage-redis',
+        'module-storage-mongo',
         'module-websocket-socketio',
-        'module-websocket-stomp'
+        'module-websocket-stomp',
 )
