@@ -20,7 +20,8 @@ public class ChatService {
         messageHelper.generateMessageId(newMessage);
 
         messageAppender.append(newMessage, "redis");
-        //messageAppender.append(newMessage, "rdb");
+        messageAppender.append(newMessage, "rdb");
+        messageAppender.append(newMessage, "mongoRepository");
     }
 
     public List<ChatMessageCommand> readMessages(Long articleId, Long chatRoomId) {

@@ -16,4 +16,5 @@ dependencies {
     compileOnly(project(":module-domain"))
     runtimeOnly(project(":module-storage-redis"))
     runtimeOnly(project(":module-storage-rdb"))
+    runtimeOnly(project(":module-storage-mongo"))
 }

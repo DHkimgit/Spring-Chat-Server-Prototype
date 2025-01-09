@@ -3,8 +3,8 @@ package io.devtab.chat.message;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -17,12 +17,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Document(collation = "chat_room")
+@Document(collection = "chat_room")
 public class ChatMessageMongoEntity {
 
     @Id
     @Field("_id")
-    private String id;
+    private ObjectId id;
 
     @Field("article_id")
     private Long articleId;
@@ -50,9 +50,6 @@ public class ChatMessageMongoEntity {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class Message {
 
-        @Field("_id")
-        private String id;
-
         @Field("tsid")
         private String tsid;
 
@@ -76,7 +73,6 @@ public class ChatMessageMongoEntity {
 
         public static Message fromDomain(ChatMessageEntity domainMessage) {
             return Message.builder()
-                .id(UUID.randomUUID().toString())
                 .tsid(domainMessage.getId().toString())
                 .userId(domainMessage.getUserId())
                 .isRead(domainMessage.getIsRead())

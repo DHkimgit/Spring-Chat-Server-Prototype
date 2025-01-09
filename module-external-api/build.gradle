@@ -11,9 +11,11 @@ dependencies {
 
     implementation(project(":module-service"))
 
-    implementation(project(":module-storage-rdb"))
+    compileOnly(project(":module-storage-rdb"))
 
     compileOnly(project(":module-storage-redis"))
+
+    compileOnly(project(":module-storage-mongo"))
 
     implementation('io.jsonwebtoken:jjwt-api:0.12.3')
     runtimeOnly('io.jsonwebtoken:jjwt-impl:0.12.3')
