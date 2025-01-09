@@ -8,6 +8,7 @@ spring:
     import:
       - classpath:application-rdb.yml
       - classpath:application-redis.yml
+      - classpath:application-socketio.yml
 
 logging:
   level:

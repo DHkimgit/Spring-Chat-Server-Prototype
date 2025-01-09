@@ -1,4 +1,8 @@
 bootJar {
+    enabled = false
+}
+
+jar {
     enabled = true
 }
 
@@ -6,8 +10,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
     implementation("org.springframework.boot:spring-boot-starter-websocket")
-
-    implementation(project(":module-websocket-socketio"))
+    implementation("com.corundumstudio.socketio:netty-socketio:2.0.12")
 
     implementation(project(":module-domain"))
 
