@@ -20,11 +20,31 @@ public class ChatRoomController {
 
     private final ChatService chatService;
 
-    @GetMapping("/chatroom/{articleId}/{chatRoomId}")
-    public ResponseEntity<?> getChatMessages(
+    @GetMapping("/chatroom/{articleId}/{chatRoomId}/redis")
+    public ResponseEntity<?> getChatMessagesFromRedis(
         @PathVariable Long articleId,
         @PathVariable Long chatRoomId) {
-        var result = chatService.readMessages(articleId, chatRoomId).stream()
+        var result = chatService.readMessages(articleId, chatRoomId, "redis").stream()
+            .map(ChatMessageResponse::toResponse)
+            .toList();
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/chatroom/{articleId}/{chatRoomId}/rdb")
+    public ResponseEntity<?> getChatMessagesFromRdb(
+        @PathVariable Long articleId,
+        @PathVariable Long chatRoomId) {
+        var result = chatService.readMessages(articleId, chatRoomId, "rdb").stream()
+            .map(ChatMessageResponse::toResponse)
+            .toList();
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/chatroom/{articleId}/{chatRoomId}/mongo")
+    public ResponseEntity<?> getChatMessagesFromMongo(
+        @PathVariable Long articleId,
+        @PathVariable Long chatRoomId) {
+        var result = chatService.readMessages(articleId, chatRoomId, "mongoRepository").stream()
             .map(ChatMessageResponse::toResponse)
             .toList();
         return ResponseEntity.ok(result);

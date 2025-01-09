@@ -11,11 +11,10 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class MessageReader {
 
-
     private final Map<String, ChatMessageRepository> repositoryMap;
 
-    public List<ChatMessageCommand> recentMessage(Long articleId, Long chatRoomId) {
-        ChatMessageRepository chatMessageRepository = repositoryMap.get("redis");
+    public List<ChatMessageCommand> allMessages(Long articleId, Long chatRoomId, String storageType) {
+        ChatMessageRepository chatMessageRepository = repositoryMap.get(storageType);
 
         return chatMessageRepository.findByArticleIdAndChatRoomId(articleId, chatRoomId, 1).stream()
             .map(ChatMessageCommand::toCommand)

@@ -28,18 +28,8 @@ public class ChatMessageRepositoryMongoImpl implements ChatMessageRepository {
             .and("chatroom_id").is(message.getChatRoomId()));
         Update update = new Update();
 
-
-
         // 새로운 메시지를 ChatMessageMongoEntity.Message로 변환
-        ChatMessageMongoEntity.Message newMessage = ChatMessageMongoEntity.Message.builder()
-            .tsid(message.getId().toString())
-            .userId(message.getUserId())
-            .isRead(false)
-            .isDeleted(false)
-            .nickName(message.getNickName())
-            .contents(message.getContents())
-            .createdAt(message.getCreatedAt())
-            .build();
+        ChatMessageMongoEntity.Message newMessage = ChatMessageMongoEntity.Message.fromDomain(message);
 
         // messages 필드에 새 메시지를 추가
         update.push("messages", newMessage);
@@ -59,7 +49,6 @@ public class ChatMessageRepositoryMongoImpl implements ChatMessageRepository {
         // articleId와 chatRoomId로 조회
         Query query = new Query(Criteria.where("article_id").is(articleId)
             .and("chatroom_id").is(chatRoomId))
-            .limit(limit)
             .with(Sort.by(Sort.Direction.DESC, "messages.created_at")); // 최신 메시지 기준 정렬
 
         // 조회
@@ -82,7 +71,6 @@ public class ChatMessageRepositoryMongoImpl implements ChatMessageRepository {
                 .contents(message.getContents())
                 .createdAt(message.getCreatedAt())
                 .build())
-            .limit(limit)
             .toList();
     }
 }

@@ -24,7 +24,7 @@ public class ChatService {
         messageAppender.append(newMessage, "mongoRepository");
     }
 
-    public List<ChatMessageCommand> readMessages(Long articleId, Long chatRoomId) {
-        return messageReader.recentMessage(articleId, chatRoomId);
+    public List<ChatMessageCommand> readMessages(Long articleId, Long chatRoomId, String storageType) {
+        return messageReader.allMessages(articleId, chatRoomId, storageType);
     }
 }
